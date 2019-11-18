@@ -14,6 +14,6 @@ class DefaultController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render("wild/home.html.twig", ["website" => "Bienvenue !"]);
+        return $this->render("wild/home.html.twig", ["website" => "Bienvenue !!!"]);
     }
 }

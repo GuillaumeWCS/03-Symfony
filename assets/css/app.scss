@@ -1,0 +1,28 @@
+
+
+$color-white : white;
+$color-yellow : rgb(255, 234, 0);
+$color-yellow-dark : rgb(255, 204, 0);
+$color-orange : rgb(255, 174, 0);
+$color-black : black;
+
+.nav-background-color {
+  background-color: $color-black;
+}
+
+.navbar-brand {
+  color: $color-yellow;
+}
+
+.nav-link {
+  color: $color-yellow;
+}
+
+.btn:hover
+{
+  color: $color-orange;
+}
+.btn
+{
+  color: $color-white;
+}
