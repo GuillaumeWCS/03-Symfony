@@ -85,4 +85,28 @@ class WildController extends AbstractController
 
         return $this->render("wild/category.html.twig", ["programs" => $programs]);
     }
+
+
+    /**
+     * @Route("/wild/program/{slug<^[a-z0-9-]+$>}", name="show_program")
+     */
+    public function showByProgram(string $slug): Response
+    {
+        if (!$slug) {
+            throw $this
+                ->createNotFoundException('No slug has been sent to find a program in program\'s table.');
+        }
+        $slug = preg_replace(
+            '/-/',
+            ' ', ucwords(trim(strip_tags($slug)), "-")
+        );
+
+        $program = $this->getDoctrine()
+            ->getRepository(Program::class)
+            ->findOneBy(["title" => $slug]);
+
+        return $this->render("wild/program.html.twig", [
+            "program" => $program,
+        ]);
+    }
 }
