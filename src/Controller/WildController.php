@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Program;
+use App\Entity\Season;
 use App\Entity\Category;
 
 class WildController extends AbstractController
@@ -107,6 +108,22 @@ class WildController extends AbstractController
 
         return $this->render("wild/program.html.twig", [
             "program" => $program,
+        ]);
+    }
+
+    /**
+     * @Route ("wild/season/{id}", name="show_season")
+     */
+    public function showBySeason(int $id): Response
+    {
+        $season = $this->getDoctrine()
+            ->getRepository(Season::class)
+            ->findOneBy(["id" => $id]);
+
+
+
+        return $this->render("wild/season.html.twig", [
+            "season" => $season,
         ]);
     }
 }
