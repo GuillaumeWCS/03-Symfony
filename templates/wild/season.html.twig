@@ -9,7 +9,8 @@
     <h4> Description : {{ season.description }} </h4>
 
     {% for episode in season.episodes %}
-        <p> Episode {{ episode.number }} : {{ episode.title }}</p>
+        <a href="{{ path("show_episode", {"id":episode.number}) }}"> Episode : {{ episode.number }}</a>
+        <p>{{ episode.title }}</p>
         <p>{{ episode.synopsis }}</p>
     {% endfor %}
 {% endblock %}
