@@ -3,7 +3,15 @@
 {% block title %} Season {% endblock %}
 
 {% block body %}
-    <h1> Season </h1>
+
+    <h1> Saison : {{ season.id }}</h1>
+    <h4> Année : {{ season.year }} </h4>
+    <h4> Description : {{ season.description }} </h4>
+
+    {% for episode in season.episodes %}
+        <p> Episode {{ episode.number }} : {{ episode.title }}</p>
+        <p>{{ episode.synopsis }}</p>
+    {% endfor %}
 {% endblock %}
 
 

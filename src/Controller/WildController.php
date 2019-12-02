@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Program;
 use App\Entity\Season;
 use App\Entity\Category;
+use App\Entity\Episode;
 
 class WildController extends AbstractController
 {
@@ -97,6 +98,7 @@ class WildController extends AbstractController
             throw $this
                 ->createNotFoundException('No slug has been sent to find a program in program\'s table.');
         }
+
         $slug = preg_replace(
             '/-/',
             ' ', ucwords(trim(strip_tags($slug)), "-")
@@ -106,24 +108,40 @@ class WildController extends AbstractController
             ->getRepository(Program::class)
             ->findOneBy(["title" => $slug]);
 
+        $seasons = $this->getDoctrine()
+            ->getRepository(Season::class)
+            ->findBy(["program" => $program]);
+
         return $this->render("wild/program.html.twig", [
             "program" => $program,
+            "seasons" => $seasons,
         ]);
     }
 
     /**
-     * @Route ("wild/season/{id}", name="show_season")
+     * @Route ("wild/season/{id<^[0-9-]+$>}", name="show_season")
      */
     public function showBySeason(int $id): Response
     {
         $season = $this->getDoctrine()
             ->getRepository(Season::class)
+            ->find(["id" => $id]);
+
+
+        $program = $this->getDoctrine()
+            ->getRepository(Program::class)
             ->findOneBy(["id" => $id]);
 
+        $episodes = $this->getDoctrine()
+            ->getRepository(Episode::class)
+            ->findOneBy(["id" => $id]);
 
+        //dd($episode);
 
         return $this->render("wild/season.html.twig", [
             "season" => $season,
+            "program" => $program,
+            "episodes" => $episodes,
         ]);
     }
 }

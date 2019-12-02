@@ -6,6 +6,13 @@
 
     <h1>{{ program.title }}</h1>
     <p>{{ program.summary }}</p>
+        {% for season in seasons %}
+            <a href="{{ path("show_season", {"id":season.id}) }}"> saison : {{ season.id }}</a>
+
+            <p>{{ season.year }}</p>
+            <p>{{ season.description }}</p>
+        {% endfor %}
+    <img src="{{ program.poster }}" class="card-img-fluid" alt="Image d'illustration">
 {% endblock %}
 
 

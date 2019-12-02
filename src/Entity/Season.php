@@ -18,10 +18,6 @@ class Season
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $program_id;
 
     /**
      * @ORM\Column(type="integer")
@@ -38,6 +34,12 @@ class Season
      */
     private $episodes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Program", inversedBy="seasons")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $program;
+
     public function __construct()
     {
         $this->episodes = new ArrayCollection();
@@ -48,17 +50,6 @@ class Season
         return $this->id;
     }
 
-    public function getProgramId(): ?int
-    {
-        return $this->program_id;
-    }
-
-    public function setProgramId(int $program_id): self
-    {
-        $this->program_id = $program_id;
-
-        return $this;
-    }
 
     public function getYear(): ?int
     {
@@ -111,6 +102,18 @@ class Season
                 $episode->setSeason(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProgram(): ?Program
+    {
+        return $this->program;
+    }
+
+    public function setProgram(?Program $program): self
+    {
+        $this->program = $program;
 
         return $this;
     }
