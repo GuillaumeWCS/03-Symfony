@@ -3,6 +3,7 @@
 {% block title %} Category {% endblock %}
 
 {% block body %}
+
     {% for program in programs %}
         {{ program.id }}
         {{ "<br>" }}
@@ -13,6 +14,8 @@
         <img src="{{ program.poster }}" class="card-img-fluid" alt="Image d'illustration">
         {{ "<br>" }}
     {%  endfor %}
+
+
 {% endblock %}
 
 
