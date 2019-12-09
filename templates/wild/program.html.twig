@@ -1,11 +1,16 @@
 
 {% extends 'base.html.twig' %}
-{% block title %} Program {% endblock %}
+{% block title %} Program ok {% endblock %}
 
 {% block body %}
 
     <h1>{{ program.title }}</h1>
-    <p>{{ program.summary }}</p>
+    <h5>{{ program.summary }}</h5>
+    <h5> With :</h5>
+    {% for actor in program.actors %}
+        <p> {{actor.name }} </p>
+    {% endfor %}
+
         {% for season in seasons %}
             <a href="{{ path("show_season", {"id":season.id}) }}"> saison : {{ season.id }}</a>
 

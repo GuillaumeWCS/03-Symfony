@@ -1,0 +1,15 @@
+
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <strong>Acteur : {{ actor.name }}</strong>
+
+        <ul>
+            <!-- Liste des séries -->
+            {% for program in actor.programs %}
+                <li>{{ program.title }} <a href="{{ path('show_program', {"slug":program.title | lower | replace({' ':'-'})}) }}">Voir</a></li>
+            {% else %}
+                <li>Aucun acteur pour cette série</li>
+            {% endfor %}
+        </ul>
+{% endblock %}

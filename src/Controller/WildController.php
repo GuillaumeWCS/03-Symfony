@@ -12,6 +12,7 @@ use App\Entity\Program;
 use App\Entity\Season;
 use App\Entity\Category;
 use App\Entity\Episode;
+use App\Entity\Actor;
 
 
 class WildController extends AbstractController
@@ -159,6 +160,32 @@ class WildController extends AbstractController
             "season" => $season,
             "program" => $program,
             "episode" => $episode,
+        ]);
+    }
+
+    /**
+     *
+     * @Route ("wild/actor/{slug<^[a-z0-9-]+$>}", defaults={"slug" = null}, name="show_actor")
+     */
+    public function showByActor(?string $slug): Response
+    {
+        if (!$slug) {
+            throw $this
+                ->createNotFoundException('No slug has been sent to find a program in program\'s table.');
+        }
+
+        $slug = preg_replace(
+            '/-/',
+            ' ', ucwords(trim(strip_tags($slug)), "-")
+        );
+
+        $actor = $this->getDoctrine()
+            ->getRepository(Actor::class)
+            ->findOneBy(["name" => $slug]);
+
+        return $this->render("wild/actor.html.twig", [
+            "actor" => $actor,
+
         ]);
     }
 }
