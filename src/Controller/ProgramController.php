@@ -12,6 +12,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 /**
  * @Route("/program")
  */
@@ -43,10 +44,10 @@ class ProgramController extends AbstractController
             $entityManager->flush();
 
             $email = (new Email())
-                ->from('skrguillaume@gmail.com') //skrguillaume@gmail.com
+                ->from($this->getParameter("mailer_from")) //skrguillaume@gmail.com
                 ->to('skrguillaume@gmail.com')
                 ->subject('Une nouvelle série vient d\'être publiée !')
-                ->html('<p>Une nouvelle série vient d\'être publiée sur Wild Séries !</p>');
+                ->html($this->renderView("program/email/notification.html.twig", ["program" => $program]));
 
 
             $mailer->send($email);
