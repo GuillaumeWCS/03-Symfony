@@ -2,4 +2,4 @@
 <h1> Une nouvelle série vient d'être ajoutée !</h1>
 <h3> Il d'agit de : {{ program.title }}</h3>
 
-<h3> Tu peux la voir en cliquant sur le lien <a href="{{ path("program_index", {"slug":program.title | lower | replace({' ':'-'})}) }}"> {{ program.title }} </a> </h3>
+<h3> Tu peux la voir en cliquant sur le lien <a href="{{ url("program_show", {"id":program.id}) }}"> {{ program.title }} </a> </h3>
